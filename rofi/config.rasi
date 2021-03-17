@@ -1,0 +1,13 @@
+/** Configured For Applets **/
+
+configuration {
+  show-icons:       	true;
+  icon-theme:         "ePapirus";
+  theme: "darker-than-black";
+  location: 0;
+  yoffset: 0;
+  xoffset: 0;
+  lines: 8;
+  font: "Inter Medium 14";
+  modi: "drun";
+}

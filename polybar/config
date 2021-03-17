@@ -1,0 +1,151 @@
+[colors]
+transparent = #00000000
+background = #212121
+background-alt = #ababab
+foreground = #ffffff
+foreground-alt = #eeffff
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/Date]
+monitor = ${env:MONITOR:HDMI-0}
+inherit = bar/Workspace
+width = 280px
+offset-x = 1630px
+modules-center = date
+
+[bar/SysStats]
+monitor = ${env:MONITOR:HDMI-1}
+inherit = bar/Workspace
+width = 500px
+offset-x = 1410px
+module-margin = 3
+modules-center = network cpu memory temperature
+
+[bar/Title]
+inherit = bar/Workspace
+modules-center = xwindow
+width = 400px
+offset-x = 165px
+
+[bar/Workspace2]
+monitor = ${env:MONITOR:HDMI-1}
+inherit = bar/Workspace
+
+[bar/Workspace]
+monitor = ${env:MONITOR:HDMI-0}
+height = 35
+width = 150px
+offset-x = 10px
+offset-y = 5px
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+bottom = false
+padding = 3
+module-margin = 0
+border-top-size = 0
+border-left-size = 0
+border-right-size = 0
+border-bottom-size = 0
+radius = 6
+modules-right =
+modules-left =
+modules-center = bspwm
+wm-restack = bspwm
+override-redirect= true
+font-0 = Inter Medium:size=11;2
+font-1 = Ubuntu Nerd Font:size=12;2
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+label-maxlen = 45
+label-empty = Desktop
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+inline-mode = false
+enable-click = false
+enable-scroll = false
+reverse-scroll = false
+; Available tags:
+;   <label-monitor>
+;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
+;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
+; Default: <label-state>
+format = <label-state> <label-mode>
+label-monitor = %name%
+
+
+label-focused = %{T2}
+label-focused-foreground = #ffffff
+
+label-occupied = %{T2}
+label-occupied-foreground = #ffffff
+
+label-urgent = %{T2}
+label-urgent-foreground = #f71919
+
+label-empty = %{T2}
+label-empty-foreground = #ffffff
+
+; Separator in between workspaces
+label-separator = |
+label-separator-padding = 0
+label-separator-foreground = ${colors.background}
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix-foreground = ${colors.foreground}
+label = "%{T2}  %{T1}%percentage%%"
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = " %{T2}﬙ %{T1}%gb_used%/%gb_total%"
+
+[module/date]
+type = internal/date
+interval = 30
+date ="%A, %d-%m-%Y"
+time = "| %I:%M%P"
+format-background = ${colors.background}
+label = %date% %time%
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+label = "%{T2}%{T1}%temperature-c%"
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/network]
+type = internal/network
+interface = enp0s31f6
+interval = 1
+label-connected = "%downspeed% %upspeed%"
+label-disconnected = OFF
+accumulate-stats = true
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+[global/wm]
+;margin-top = 0
+;margin-bottom = 0
+
+; vim:ft=dosini

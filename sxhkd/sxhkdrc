@@ -1,0 +1,74 @@
+#To spawn the terminal
+alt + Return
+	alacritty
+
+#Make sxhkd reload its configuration files:
+alt + shift + Escape
+	pkill -USR1 -x sxhkd
+
+#Show rofi
+alt + space
+	rofi -show 
+
+#Reload bspwm
+super + shift + r
+	~/.config/bspwm/bspwmrc
+
+#Close and kill
+alt + shift + q
+	bspc node -{c}
+
+#Quit bspwm
+super + shift + F12
+	bspc quit
+
+#Focus the given desktop primary monitor
+alt + {1-5}
+	bspc {desktop -f} focused:^{1-4}
+
+# focus or send to the given desktop
+alt + {_,shift + }{1-5}
+	bspc {desktop -f,node -d} focused:^{1-5} --follow
+
+# set the window state
+alt + f
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+#fullscreen
+alt + f
+	bspc node -t {floating,tiled}
+#float
+alt + shift + f
+	bspc node -t {fullscreen,tiled}
+
+# Focus/swap windows by direction
+alt + {_,shift + }{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+# Move focused window to other monitor
+alt + shift + bracketleft
+	bspc node -m prev --follow
+
+# Move focused window to next monitor
+alt + shift + bracketright
+	bspc node -m next -follow
+
+# Changed focused monitor
+alt + bracketright
+	bspc monitor --focus next
+
+# Changed focused monitor 
+alt + bracketleft
+	bspc monitor --focus prev
+
+# Rotate tree on focused tree
+alt + shift + {d,a}
+	bspc node @/ -C {forward,backward}
+
+# Resize window
+alt + shift + {Left, Down, Up, Right}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Lock screen
+super + shift + l
+	dm-tool switch-to-greeter
