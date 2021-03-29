@@ -35,7 +35,7 @@ inherit = bar/Workspace
 
 [bar/Workspace]
 monitor = ${env:MONITOR:HDMI-0}
-height = 35
+height = 30
 width = 150px
 offset-x = 10px
 offset-y = 5px
