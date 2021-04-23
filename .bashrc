@@ -138,4 +138,4 @@ ex ()
   fi
 }
 
-eval "$(starship init bash)"
+source "$HOME/.cargo/env"

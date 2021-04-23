@@ -1,6 +1,6 @@
 [colors]
 transparent = #00000000
-background = #212121
+background = #1f1f1f
 background-alt = #ababab
 foreground = #ffffff
 foreground-alt = #eeffff
@@ -11,57 +11,75 @@ alert = #bd2c40
 [bar/Date]
 monitor = ${env:MONITOR:HDMI-0}
 inherit = bar/Workspace
-width = 280px
-offset-x = 1630px
+width = 250px
+offset-x = 1660px
 modules-center = date
 
-[bar/SysStats]
-monitor = ${env:MONITOR:HDMI-1}
+[bar/Time]
+monitor = ${env:MONITOR:HDMI-0}
 inherit = bar/Workspace
-width = 500px
-offset-x = 1410px
+width = 100px
+offset-x = 905px
+modules-center = time
+
+[bar/SysStats]
+monitor = ${env:MONITOR:HDMI-2}
+inherit = bar/Workspace
+width = 550px
+offset-x = 1360px
 module-margin = 3
-modules-center = network cpu memory temperature
+modules-center = filesystem upload download cpu memory temperature
+
+[bar/Media]
+monitor = ${env:MONITOR:HDMI-2}
+inherit = bar/Workspace
+width = 450px
+offset-x = 95px
+modules-center = media
 
 [bar/Title]
 inherit = bar/Workspace
 modules-center = xwindow
 width = 400px
-offset-x = 165px
+offset-x = 125px
 
 [bar/Workspace2]
-monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:HDMI-2}
 inherit = bar/Workspace
+width = 80px
+enable-ipc = true
 
 [bar/Workspace]
 monitor = ${env:MONITOR:HDMI-0}
 height = 30
-width = 150px
+width = 110px
 offset-x = 10px
 offset-y = 5px
 fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 bottom = false
-padding = 3
+padding = 0
 module-margin = 0
-border-top-size = 0
-border-left-size = 0
-border-right-size = 0
-border-bottom-size = 0
+border-size = 0px
+border-color = ${colors.foreground}
 radius = 6
 modules-right =
 modules-left =
 modules-center = bspwm
 wm-restack = bspwm
 override-redirect= true
-font-0 = Inter Medium:size=11;2
-font-1 = Ubuntu Nerd Font:size=12;2
+enable-ipc = true
+
+font-0 = Inter:style=Medium:size=11;2
+font-1 = Ubuntu Nerd Font:size=14;3
+font-2 = Font Awesome 5 Free Solid:size=11;2
+font-3 = Ubuntu Nerd Font:size=12;2
 
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-maxlen = 45
+label-maxlen = 50
 label-empty = Desktop
 
 [module/bspwm]
@@ -76,21 +94,20 @@ reverse-scroll = false
 ;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
 ;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
 ; Default: <label-state>
-format = <label-state> <label-mode>
+format = <label-state>
 label-monitor = %name%
 
-
-label-focused = %{T2}
+label-focused = %{T4}
 label-focused-foreground = #ffffff
 
-label-occupied = %{T2}
-label-occupied-foreground = #ffffff
+label-occupied = %{T4}
+label-occupied-foreground = #d4d4d4
 
-label-urgent = %{T2}
-label-urgent-foreground = #f71919
+label-urgent = %{T4}
+label-urgent-foreground = #db0000
 
-label-empty = %{T2}
-label-empty-foreground = #ffffff
+label-empty = %{T4}
+label-empty-foreground = #d9d9d9
 
 ; Separator in between workspaces
 label-separator = |
@@ -100,44 +117,90 @@ label-separator-foreground = ${colors.background}
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix-foreground = ${colors.foreground}
-label = "%{T2}  %{T1}%percentage%%"
+format-prefix =  
+format-prefix-foreground = #ffcb6b
+label = " %percentage%%"
 
 [module/memory]
 type = internal/memory
 interval = 2
-label = " %{T2}﬙ %{T1}%gb_used%/%gb_total%"
+format-prefix = " "
+format-prefix-foreground = #82aaff 
+
 
 [module/date]
 type = internal/date
 interval = 30
-date ="%A, %d-%m-%Y"
-time = "| %I:%M%P"
+format-prefix = %{T3}
+format-prefix-foreground = #ffcb6b
+date = %{T1} %A %B %d, %Y
 format-background = ${colors.background}
-label = %date% %time%
+label = %{T1} %date%
+
+[module/time]
+type = internal/date
+interval = 30
+format-prefix = %{T3}  
+format-prefix-foreground = #c3e88d
+format-background = ${colors.background}
+time = "%{T1} %I:%M%P"
+label = %{T1} %time%
 
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 format = <ramp> <label>
-format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-label = "%{T2}%{T1}%temperature-c%"
+format-prefix = 
+format-prefix-foreground = #c792ea
+label = "%temperature-c%"
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
-[module/network]
+[module/media]
+type = custom/script
+tail = true
+format-prefix = " "
+label-maxlen = 55
+format = <label>
+exec = ~/Scripts/spotify_status.sh
+
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+interval = 60
+fixed-values = true
+format-mounted-prefix = " "
+format-mounted-prefix-foreground = #f07178
+format-mounted = <label-mounted>
+label-mounted = "%percentage_free%%"
+format-unmounted-prefix =
+label-unmounted = %mountpoint%: not mounted
+
+[module/download]
 type = internal/network
 interface = enp0s31f6
 interval = 1
-label-connected = "%downspeed% %upspeed%"
-label-disconnected = OFF
+format-connected-prefix = "ﰬ"
+format-connected-prefix-foreground = #c3e88d
+label-connected = "%upspeed%"
+label-disconnected = 
+accumulate-stats = true
+
+
+[module/upload]
+type = internal/network
+interface = enp0s31f6
+interval = 1
+format-connected-prefix = "ﰵ"
+format-connected-prefix-foreground = #89ddff
+label-connected = "%upspeed%"
+label-disconnected = 
 accumulate-stats = true
 
 [settings]

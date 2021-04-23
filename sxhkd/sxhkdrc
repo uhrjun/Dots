@@ -8,19 +8,15 @@ alt + shift + Escape
 
 #Show rofi
 alt + space
-	rofi -show 
-
-#Reload bspwm
-super + shift + r
-	~/.config/bspwm/bspwmrc
+	rofi -show drun -monitor 1
 
 #Close and kill
 alt + shift + q
 	bspc node -{c}
 
 #Quit bspwm
-super + shift + F12
-	bspc quit
+super + shift + {F12, r}
+	bspc {quit, wm -r}
 
 #Focus the given desktop primary monitor
 alt + {1-5}
@@ -30,16 +26,16 @@ alt + {1-5}
 alt + {_,shift + }{1-5}
 	bspc {desktop -f,node -d} focused:^{1-5} --follow
 
-# set the window state
-alt + f
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
 #fullscreen
 alt + f
 	bspc node -t {floating,tiled}
 #float
 alt + shift + f
 	bspc node -t {fullscreen,tiled}
+
+#pseudotile
+alt + shift + p
+	bspc node -t {pseudo_tiled}
 
 # Focus/swap windows by direction
 alt + {_,shift + }{h,j,k,l}
@@ -65,10 +61,30 @@ alt + bracketleft
 alt + shift + {d,a}
 	bspc node @/ -C {forward,backward}
 
-# Resize window
-alt + shift + {Left, Down, Up, Right}
+# expand a window by moving one of its side outward
+alt + {Left, Down, Up, Right}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+alt + shift + {Left, Down, Up, Right}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# follow sticky pip 
+alt + p
+	bspc node -g sticky
+
+# preselect the direction
+alt + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# cancel the preselection for the focused node
+alt + ctrl + space
+	bspc node -p cancel
+
+#Rotate inside leaf
+alt + BackSpace
+	bspc node @parent -R 90
 
 # Lock screen
 super + shift + l
-	dm-tool switch-to-greeter
+	light-locker-command -l

@@ -4,7 +4,7 @@
 	selbg:                      #e3e3e3;
 	actbg:                      #e3e3e3;
 	urgbg:                      #e53935;
-	winbg:			    #d3d3d3;
+	winbg:			    #ffffff;
 
 	selected-normal-foreground: @background-color;
 	normal-foreground:          @text-color;
@@ -25,7 +25,7 @@
 }
 
 #window {
-	width:					400px;
+	width:					600px;
 	border-radius: 				6px;
 	children: 					[mainbox];
 }

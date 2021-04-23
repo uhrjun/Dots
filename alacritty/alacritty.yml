@@ -15,6 +15,7 @@ window:
     x: 10
     y: 10
 
+
 # Font configuration (changes require restart)
 font:
   # The size to use.

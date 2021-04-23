@@ -2,12 +2,12 @@
 
 configuration {
   show-icons:       	true;
-  icon-theme:         "ePapirus";
+  icon-theme:         "Papirus-Dark";
   theme: "darker-than-black";
   location: 0;
   yoffset: 0;
   xoffset: 0;
   lines: 8;
-  font: "Inter Medium 14";
+  font: "Inter Medium 16";
   modi: "drun";
 }
