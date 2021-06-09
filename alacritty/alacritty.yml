@@ -20,7 +20,7 @@ window:
 font:
   # The size to use.
   size: 13
-  # The normal (roman) font face to use.
+  # The n3ormal (roman) font face to use.
   normal:
     family: JetBrains Mono
     # Style can be specified to pick a specific face.
